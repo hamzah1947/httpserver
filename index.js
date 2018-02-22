@@ -12,7 +12,7 @@ var server = http.createServer(function (req, res) {
         res.writeHead(200);
         res.end(rep, 'utf-8');
     });
-}).listen(8080); //the server object listens on port 8080
+}).listen(process.env.PORT || 5000); //the server object listens on port 8080
 
 var io = socketIO.listen(server);
 
