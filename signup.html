@@ -1,0 +1,256 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Sign up</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        input {
+            margin-bottom: 8px;
+        }
+
+        .fa-check {
+            color: green;
+        }
+
+        .fa-times {
+            color: red;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 55%;
+            padding: 5px;
+            font-size: 16px;
+            height: 35px;
+        }
+
+        input[type="submit"] {
+            background-color: #337ab7;
+            padding: 5px;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        body {
+            background: url('./back3.jpg');
+            background-size: 100% 100%;
+            background-repeat: no-repeat
+        }
+
+        #formdiv {
+            border: 1pt solid black;
+            margin-top: 7%;
+            margin-left: 5%;
+            background: aliceblue;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            float: left;
+            width: 40%;
+
+        }
+
+        .mandatory {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="formdiv" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Sign Up</h2>
+            </div>
+        </div>
+        <form>
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" id="fn" name="firstname" placeholder="First name" onblur="validate(this)">
+                    <span class="mandatory">*</span>
+                    <i id="fnc" class="" style="font-size:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" id="ln" name="lastname" placeholder="Last Name" onblur="validate(this)">
+                    <i id="lnc" class="" style="font-size:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="em" type="email" name="email" placeholder="Email" onblur="validate(this)">
+                    <span class="mandatory">*</span>
+                    <i id="emc" class="" style="font-size:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="un" type="text" name="username" placeholder="Username" onblur="validate(this)">
+                    <i id="unc" class="" style="font-size:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input id="pw" type="password" name="password" placeholder="password" onblur="validate(this)">
+                    <span class="mandatory">*</span>
+                    <i id="pwc" class="" style="font-size:20px;" aria-hidden="true"></i>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" name="phonenumber" placeholder="Phone Number">
+                    <span class="mandatory">*</span>
+                </div>
+            </div>
+
+            </br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>
+                        <input type="checkbox" id="act" name="terms"> I agree with the
+                        <a href="#">Terms and Conditions</a>.</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="btn btn-primary" onclick="return checkinfo()">Sign up</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+
+        var socket = io.connect('http://127.0.0.1:5000');
+
+        if (socket !== undefined)
+            console.log('connected to database server...');
+
+
+        function validate(myid) {
+            var element = document.getElementById(myid.id);
+            var str = element.value;
+
+            switch (myid.id) {
+                case "fn": {
+                    var patt = /^([^0-9]*)$/;
+                    var res = patt.test(str);
+                    if (res)
+                        document.getElementById('fnc').setAttribute('class', 'fa fa-check');
+                    else
+                        document.getElementById('fnc').setAttribute('class', 'fa fa-times');
+                    break;
+                }
+                case "ln": {
+                    var patt = /^([^0-9]*)$/;
+                    var res = patt.test(str);
+                    if (res)
+                        document.getElementById('lnc').setAttribute('class', 'fa fa-check');
+                    else {
+                        document.getElementById('lnc').setAttribute('class', 'fa fa-times');
+                    }
+                    break;
+                }
+                case "em": {
+                    var patt = /(\w+)(\d+)?@\w+\.(com)?(net)?\.?\w+?/g;
+                    var res = patt.test(str);
+                    if (res)
+                        document.getElementById('emc').setAttribute('class', 'fa fa-check');
+                    else
+                        document.getElementById('emc').setAttribute('class', 'fa fa-times');
+                    break;
+                }
+                case "un": {
+                    var el = document.getElementById('un');
+                    console.log("passing name " + el.value + " for checking...");
+                    socket.emit('checkName', {
+                        user: el.value
+                    });
+                    break;
+                }
+                case "pw": {
+                    var patt = /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*+=]).*$/g;
+                    var res = patt.test(str);
+                    if (res)
+                        document.getElementById('pwc').setAttribute('class', 'fa fa-check');
+                    else
+                        document.getElementById('pwc').setAttribute('class', 'fa fa-times');
+                    break;
+                }
+            }
+            //var patt = /(\w+)(\d+)?@\w+\.(com)?(net)?\.?\w+?/g;
+            //var res = patt.test(str);
+            //if (res)
+            //   document.getElementById('emc').setAttribute('class', 'fa fa-check');
+        }
+
+        function checkinfo() {
+            var i = document.getElementsByClassName('fa fa-check');
+            var b = document.getElementById('act');
+            console.log("class value : " + document.getElementById('fn').value);
+            if (i.length == 5 && b.checked) {
+                window.alert("Information correct");
+
+                socket.emit('addUser', {
+                    FirstName: document.getElementById('fn').value,
+                    LastName: document.getElementById('ln').value,
+                    Email: document.getElementById('em').value,
+                    Username: document.getElementById('un').value,
+                    Password: document.getElementById('pw').value
+
+                });
+
+
+
+            }
+            else {
+                window.alert("information incomplete");
+
+            }
+
+            return false;
+        }
+
+        socket.on('nameResult', function (result) {
+            console.log("user found length : " + result.length);
+            if (result.length == 0)
+                document.getElementById('unc').setAttribute('class', 'fa fa-check');
+            else
+                document.getElementById('unc').setAttribute('class', 'fa fa-times');
+        });
+
+        socket.on("addUserResult", function () {
+
+            window.alert("User successfully added");
+            // document.getElementById('fn').value = "";
+            // document.getElementById('ln').value = "";
+            // document.getElementById('em').value = "";
+            // document.getElementById('un').value = "";
+            // document.getElementById('pw').value = "";
+            window.location.assign("./index.html");
+        })
+
+
+        // Connect to socket.io
+
+    </script>
+</body>
+
+</html>
