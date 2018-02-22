@@ -1,0 +1,465 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Homepage</title>
+
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+</head>
+
+<body background="./../images/smiley_background.png">
+
+  <div class="container app">
+    <div class="row app-one">
+      <div class="col-sm-4 side">
+        <div class="side-one">
+          <div class="row heading">
+            <div class="col-sm-2 col-xs-2 heading-avatar">
+              <div class="heading-avatar-icon">
+                <img id="mypic" src="">
+              </div>
+            </div>
+
+            <div class="col-sm-5 col-xs-4 heading-name">
+              <div id="thisuser" class="heading-name-meta">
+                User
+              </div>
+            </div>
+
+            <div class="col-sm-1 col-sm-push-1 col-xs-2 heading-compose">
+              <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-1 col-sm-push-1 col-xs-1 heading-dot">
+              <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true" onclick="editinfo()"></i>
+            </div>
+            <div class="col-sm-1 col-sm-push-1 col-xs-1  heading-dot">
+              <i class="fa fa-sign-out fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+
+
+          </div>
+
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row sideBar">
+            <!--
+              <div class="row sideBar-body">
+                <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                  <div class="avatar-icon">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                  </div>
+                </div>
+                <div class="col-sm-9 col-xs-9 sideBar-main">
+                  <div class="row">
+                    <div class="col-sm-8 col-xs-8 sideBar-name">
+                      <span class="name-meta">Fiend Name
+                      </span>
+                    </div>
+                    <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                      <span class="time-meta pull-right">18:18
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            -->
+          </div>
+        </div>
+
+        <div class="side-two">
+          <div class="row newMessage-heading">
+            <div class="row newMessage-main">
+              <div class="col-sm-2 col-xs-2 newMessage-back">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </div>
+              <div class="col-sm-10 col-xs-10 newMessage-title">
+                New Chat
+              </div>
+            </div>
+          </div>
+
+          <div class="row composeBox">
+            <div class="col-sm-12 composeBox-inner">
+              <div class="form-group has-feedback">
+                <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row compose-sideBar">
+            <!-- <div class="row sideBar-body">
+              <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                <div class="avatar-icon">
+                  <img src="./avatar1.png">
+                </div>
+              </div>
+              <div class="col-sm-9 col-xs-9 sideBar-main">
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 sideBar-name">
+                    <span class="name-meta">Friend Name
+                    </span>
+                  </div>
+                  <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                    <span class="time-meta pull-right">18:18
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-8 conversation">
+        <div class="row heading">
+          <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+            <div class="heading-avatar-icon">
+              <img id="friendimage" src="./../images/avatar1.png">
+            </div>
+          </div>
+          <div class="col-sm-7 col-xs-6 heading-name">
+            <a id="friendname" class="heading-name-meta">
+            </a>
+            <div id="status"></div>
+            <span class="heading-online">Online</span>
+          </div>
+          <div class="col-sm-1 col-xs-1  heading-dot pull-right">
+            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1  heading-dot pull-right">
+            <i class="fa fa-phone fa-2x  pull-right secon" aria-hidden="true"></i>
+          </div>
+          <a href="VideoCall/index.html" target="_blank">
+            <div class="col-sm-1 col-xs-1  heading-dot pull-right">
+              <i class="fa fa-video-camera fa-2x  pull-right secon" aria-hidden="true"></i>
+            </div>
+          </a>
+
+        </div>
+
+        <div class="row message" id="conversation">
+          <div class="row message-previous">
+            <div class="col-sm-12 previous">
+              <a>
+                Show Previous Messages
+              </a>
+            </div>
+          </div>
+
+          <div id="messages" class="row message-body">
+            <div class="col-sm-12 message-main-receiver">
+
+            </div>
+          </div>
+
+          <div class="row message-body">
+            <div class="col-sm-12 message-main-sender">
+
+            </div>
+          </div>
+        </div>
+        <div class="row reply">
+          <div class="col-sm-1 col-xs-1 reply-emojis">
+            <i class="fa fa-smile-o fa-2x"></i>
+          </div>
+          <div class="col-sm-9 col-xs-9 reply-main">
+            <textarea class="form-control" rows="1" id="comment"></textarea>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-recording">
+            <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-send">
+            <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+
+    //Transition function.....
+    $(function () {
+      $(".heading-compose").click(function () {
+        $(".side-two").css({
+          "left": "0"
+        });
+      });
+
+      $(".newMessage-back").click(function () {
+        $(".side-two").css({
+          "left": "-100%"
+        });
+      });
+    })
+
+    // Connect to socket.io
+    var socket = io.connect('http://localhost:8080');
+
+
+    // Check for connection
+    if (socket !== undefined) {
+      console.log('socket in home page aquired... username is ' + sessionStorage.getItem('username'));
+    }
+
+
+    function editinfo() {
+      window.location.href = "./Edit-profile/index.htm";
+    }
+
+
+    //Requesting user contacts.....
+    socket.emit("getContactList", {
+      Username: sessionStorage.getItem('username').toString()
+    }
+    );
+
+
+    //Recieving users contacts.....
+    socket.on("getContactListResult", function (data) {
+      var c = '' + data.Friends;
+      var x = c.split(',');
+      createContactList(x);
+    }
+    );
+
+    //Setting contacts names and pictures.....
+    function createContactList(friends) {
+      var w;
+      for (w = 0; w < friends.length; w++) {
+        //create the three main divisions..
+        var sidebarbodydiv = document.createElement("div");
+        sidebarbodydiv.setAttribute("class", "row sideBar-body");
+        sidebarbodydiv.setAttribute("onclick", "setFriendName(this)");
+
+        var sidebaravatardiv = document.createElement("div");
+        sidebaravatardiv.setAttribute("class", "col-sm-3 col-xs-3 sideBar-avatar");
+
+        var sidebarmaindiv = document.createElement("div");
+        sidebarmaindiv.setAttribute("class", "col-sm-9 col-xs-9 sideBar-main");
+
+        //now create inner division for avatar..
+        var avataricondiv = document.createElement("div");
+        avataricondiv.setAttribute("class", "avatar-icon")
+
+        var avatar = document.createElement("img");
+        avatar.setAttribute("src", "./../images/" + friends[w] + ".jpg");
+
+        avataricondiv.appendChild(avatar);
+        sidebaravatardiv.appendChild(avataricondiv);
+
+        //now create inner divisions for sidebar-main
+        var rowdiv = document.createElement("div");
+        rowdiv.setAttribute("class", "row");
+
+        var sidebarnamediv = document.createElement("div");
+        sidebarnamediv.setAttribute("class", "col-sm-8 col-xs-8 sideBar-name");
+
+        var namemetaspan = document.createElement("span");
+        namemetaspan.setAttribute("class", "name-meta");
+        var metatextnode = document.createTextNode(friends[w]);
+
+        namemetaspan.appendChild(metatextnode);
+        sidebarnamediv.appendChild(namemetaspan);
+        rowdiv.appendChild(sidebarnamediv);
+        sidebarmaindiv.appendChild(rowdiv);
+
+
+        sidebarbodydiv.appendChild(sidebaravatardiv);
+        sidebarbodydiv.appendChild(sidebarmaindiv);
+
+        var x = document.getElementsByClassName("row sideBar");
+        x[0].appendChild(sidebarbodydiv);
+      }
+    }
+
+    //Requesting global users.....
+    socket.emit("getAllUsers", {});
+
+
+    //Recieving global users.....
+    socket.on("getAllUsersResult", function (data) {
+      var c = '' + data.usernames;
+      console.log(c);
+      var x = c.split(',');
+      createUsersList(x);
+    });
+
+
+    //Setting users names and pictures.....
+    function createUsersList(users) {
+      var w;
+      for (w = 0; w < users.length; w++) {
+        //create the three main divisions..
+        var composesidebardiv = document.createElement("div");
+        composesidebardiv.setAttribute("class", "row compose-sideBar");
+        //composesidebardiv.setAttribute("onclick", "setFriendName(this)");
+
+        var sidebaravatardiv = document.createElement("div");
+        sidebaravatardiv.setAttribute("class", "col-sm-3 col-xs-3 sideBar-avatar");
+
+        var sidebarmaindiv = document.createElement("div");
+        sidebarmaindiv.setAttribute("class", "col-sm-9 col-xs-9 sideBar-main");
+
+        //now create inner division for avatar..
+        var avataricondiv = document.createElement("div");
+        avataricondiv.setAttribute("class", "avatar-icon")
+
+        var avatar = document.createElement("img");
+        avatar.setAttribute("src", "./../images/" + users[w] + ".jpg");
+
+        avataricondiv.appendChild(avatar);
+        sidebaravatardiv.appendChild(avataricondiv);
+
+        //now create inner divisions for sidebar-main
+        var rowdiv = document.createElement("div");
+        rowdiv.setAttribute("class", "row");
+
+        var sidebarnamediv = document.createElement("div");
+        sidebarnamediv.setAttribute("class", "col-sm-8 col-xs-8 sideBar-name");
+
+        var namemetaspan = document.createElement("span");
+        namemetaspan.setAttribute("class", "name-meta");
+        var metatextnode = document.createTextNode(users[w]);
+
+        namemetaspan.appendChild(metatextnode);
+        sidebarnamediv.appendChild(namemetaspan);
+        rowdiv.appendChild(sidebarnamediv);
+        sidebarmaindiv.appendChild(rowdiv);
+
+
+        composesidebardiv.appendChild(sidebaravatardiv);
+        composesidebardiv.appendChild(sidebarmaindiv);
+
+        var x = document.getElementsByClassName("row compose-sideBar");
+        x[0].appendChild(composesidebardiv);
+      }
+    }
+
+
+    //Setting profile username.....
+    document.getElementById('thisuser').innerHTML = "<b>" + sessionStorage.getItem('username') + "</b>";
+
+    //Setting profile picture.....
+    var picname = sessionStorage.getItem('username');
+    document.getElementById('mypic').setAttribute('src', "./../images/" + picname + ".jpg");
+
+
+    //Collecting message sending elements.....
+    var textarea = document.getElementById('comment');
+    var messreciever = document.getElementById('myreciever');
+    var messsender = document.getElementById('mysender')
+    var currentc = "";
+    var messages = document.getElementById('messages');
+
+    
+    // Handle Input message.....
+    textarea.addEventListener('keydown', function (event) {
+      if (event.which === 13 && event.shiftKey == false) {
+        console.log('send message initiated...');
+        // Emit to server input
+        socket.emit('inputmessages', {
+          name: sessionStorage.getItem('username'),
+          recievedby: currentc,
+          message: textarea.value
+        });
+        event.preventDefault();
+      }
+    });
+
+    socket.on('inputmessagesResult', function () {
+      socket.emit('getMessages', {
+        accountName: sessionStorage.getItem('username'),
+        friendname: currentc
+      });
+    });
+    
+
+    //Clearing text bar.....
+    socket.on('refresh', function () {
+      textarea.value = '';
+    });
+
+
+    //Setting contact name at top.....
+    function setFriendName(e) {
+      messages.innerHTML = "";
+      var c = e.getElementsByClassName('col-sm-9 col-xs-9 sideBar-main')[0].getElementsByClassName('row')[0].getElementsByClassName('col-sm-8 col-xs-8 sideBar-name')[0].getElementsByClassName('name-meta')[0];
+      console.log("inner Html is " + c.innerHTML);
+      document.getElementById('friendname').innerHTML = c.innerHTML;
+      document.getElementById('friendimage').setAttribute('src', './../images/' + c.innerHTML + '.jpg');
+      currentc = c.innerHTML;
+      socket.emit('getMessages', {
+        accountName: sessionStorage.getItem('username'),
+        friendname: currentc
+      });
+    }
+
+
+
+    socket.on('getMessagesResult', function (data) {
+      messages.innerHTML = "";
+      var messs = data.mess;
+      
+      if (!data.reverse) {
+        for (var x = 0; x < messs.length; x++) {
+          // Build out message div
+          if (messs[x].sender == undefined) {
+            var message = document.createElement('div');
+            message.setAttribute('class', 'receiver');
+            message.textContent = currentc + ": " + messs[x].reciever;
+            message.style.cssFloat = 'left';
+          }
+          else {
+            var message = document.createElement('div');
+            message.setAttribute('class', 'sender');
+            message.textContent = picname + ": " + messs[x].sender;
+            message.style.cssFloat = 'right';
+          }
+          messages.appendChild(message);
+
+        }
+      } else {
+        for (var x = 0; x < messs.length; x++) {
+          // Build out message div
+          if (messs[x].sender == undefined) {
+            var message = document.createElement('div');
+            message.setAttribute('class', 'sender');
+            message.textContent = picname + ": " + messs[x].reciever;
+            message.style.cssFloat = 'right';
+          }
+          else {
+            var message = document.createElement('div');
+            message.setAttribute('class', 'receiver');
+            message.textContent = currentc + ": " + messs[x].sender;
+            message.style.cssFloat = 'left';
+          }
+          messages.appendChild(message);
+
+        }
+      }
+
+    })
+  </script>
+
+</body>
+
+</html>

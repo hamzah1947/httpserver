@@ -1,0 +1,205 @@
+<html>
+
+<head>
+  <title>
+    Edit Profile Information
+  </title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      background: url('./../../back3.jpg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+    <div style="background-color:aliceblue" class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <h6>Upload a different photo...</h6>
+
+          <input type="file" class="form-control">
+        </div>
+      </div>
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">�</a>
+          <i class="fa fa-coffee"></i>
+          This is an
+          <strong>.alert</strong>. Use this to show important messages to the user.
+        </div>
+        <h3>Personal info</h3>
+
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">First name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" id="fn" name="firstname" placeholder="First name" onblur="validate(this)">
+              <span class="mandatory">*</span>
+              <i id="fnc" class="" style="font-size:20px;" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Last name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" id="ln" name="lastname" placeholder="Last Name" onblur="validate(this)">
+              <i id="lnc" class="" style="font-size:20px;" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Email:</label>
+            <div class="col-lg-8">
+              <input class="form-control" id="em" type="email" name="email" placeholder="Email" onblur="validate(this)">
+              <span class="mandatory">*</span>
+              <i id="emc" class="" style="font-size:20px;" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Username:</label>
+            <div class="col-md-8">
+              <input class="form-control" id="un" type="text" name="username" placeholder="Username" onblur="validate(this)">
+              <i id="unc" class="" style="font-size:20px;" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">New Password:</label>
+            <div class="col-md-8">
+              <input class="form-control" id="pw" type="password" name="password" placeholder="password" onblur="validate(this)">
+              <span class="mandatory">*</span>
+              <i id="pwc" class="" style="font-size:20px;" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Confirm password:</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="11111122333">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8">
+              <input type="button" class="btn btn-primary" value="Save Changes" onclick="checkinfo()">
+              <span></span>
+              <input type="reset" class="btn btn-default" value="Cancel">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+  <script>
+
+    var socket = io.connect('http://127.0.0.1:3000');
+
+    if (socket !== undefined)
+      console.log('connected to database server...');
+
+
+    function validate(myid) {
+      var element = document.getElementById(myid.id);
+      var str = element.value;
+
+      switch (myid.id) {
+        case "fn": {
+          var patt = /^([^0-9]*)$/;
+          var res = patt.test(str);
+          if (res)
+            document.getElementById('fnc').setAttribute('class', 'fa fa-check');
+          else
+            document.getElementById('fnc').setAttribute('class', 'fa fa-times');
+          break;
+        }
+        case "ln": {
+          var patt = /^([^0-9]*)$/;
+          var res = patt.test(str);
+          if (res)
+            document.getElementById('lnc').setAttribute('class', 'fa fa-check');
+          else {
+            document.getElementById('lnc').setAttribute('class', 'fa fa-times');
+          }
+          break;
+        }
+        case "em": {
+          var patt = /(\w+)(\d+)?@\w+\.(com)?(net)?\.?\w+?/g;
+          var res = patt.test(str);
+          if (res)
+            document.getElementById('emc').setAttribute('class', 'fa fa-check');
+          else
+            document.getElementById('emc').setAttribute('class', 'fa fa-times');
+          break;
+        }
+        case "un": {
+          var el = document.getElementById('un');
+          console.log("passing name " + el.value + " for checking...");
+          socket.emit('checkName', {
+            user: el.value
+          });
+          break;
+        }
+        case "pw": {
+          var patt = /^(?=.{8,})(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*+=]).*$/g;
+          var res = patt.test(str);
+          if (res)
+            document.getElementById('pwc').setAttribute('class', 'fa fa-check');
+          else
+            document.getElementById('pwc').setAttribute('class', 'fa fa-times');
+          break;
+        }
+      }
+    }
+    function checkinfo() {
+      var i = document.getElementsByClassName('fa fa-check');
+      console.log("class value : " + document.getElementById('fn').value);
+      if (i.length == 5) {
+        window.alert("Information correct");
+
+        socket.emit('UpdateUser', {
+          FirstName: document.getElementById('fn').value,
+          LastName: document.getElementById('ln').value,
+          Email: document.getElementById('em').value,
+          Username: document.getElementById('un').value,
+          Password: document.getElementById('pw').value
+
+        });
+
+      }
+      else {
+        window.alert("information incomplete");
+
+      }
+
+      return false;
+    }
+
+socket.on('UpdateUserResult',function(data){
+  window.alert('Information Updated successfully')
+});
+
+    socket.on('nameResult', function (result) {
+      console.log("user found length : " + result.length);
+      if (result.length == 0)
+        document.getElementById('unc').setAttribute('class', 'fa fa-check');
+      else
+        document.getElementById('unc').setAttribute('class', 'fa fa-times');
+    });
+  </script>
+</body>
+
+</html>
